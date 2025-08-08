@@ -22,4 +22,53 @@ public class Otp {
 
     @Column(name = "updated_at", nullable = false, insertable = false)
     private LocalDateTime updatedAt;
+
+    // Getters and Setters
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Otp{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", userId=" + (user != null ? user.getId() : null) +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }
