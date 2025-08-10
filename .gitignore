@@ -41,3 +41,4 @@ logs/
 application-*.properties
 application-*.yml
 application-*.yaml
+application*.properties
