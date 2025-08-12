@@ -15,6 +15,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for APIs
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/users/register").permitAll() // Allow registration without auth
+                        .requestMatchers("/api/v1/users/verify-email").permitAll()
                         .anyRequest().authenticated() // Everything else requires auth
                 )
                 .httpBasic(Customizer.withDefaults()); // Or jwt/login config

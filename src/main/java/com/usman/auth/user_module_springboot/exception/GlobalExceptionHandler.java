@@ -8,6 +8,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.usman.auth.user_module_springboot.dto.ApiResponse;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,12 +17,12 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ApiResponse<Object>> handleValidationException(MethodArgumentNotValidException ex) {
         FieldError firstError = ex.getBindingResult().getFieldErrors().get(0);
 
-        Map<String, String> response = new HashMap<>();
-        response.put("message", firstError.getDefaultMessage());
-
+        ApiResponse<Object> response = new ApiResponse<>();
+        response.setSuccess(false);
+        response.setMessage(firstError.getDefaultMessage());
         return ResponseEntity.badRequest().body(response);
     }
 

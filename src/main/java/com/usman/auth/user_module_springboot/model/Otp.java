@@ -13,7 +13,7 @@ public class Otp {
     @Column(name = "code", nullable = false)
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
