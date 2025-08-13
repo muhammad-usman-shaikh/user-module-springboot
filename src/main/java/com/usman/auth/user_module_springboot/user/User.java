@@ -1,13 +1,19 @@
 package com.usman.auth.user_module_springboot.user;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(name = "unique_email", columnNames = "email")
 })
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -41,7 +47,6 @@ public class User {
     private LocalDateTime updatedAt;
 
     // === Timestamp Hooks ===
-
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();
@@ -55,7 +60,6 @@ public class User {
     }
 
     // === Getters & Setters ===
-
     public Integer getId() {
         return id;
     }
@@ -88,6 +92,7 @@ public class User {
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -134,5 +139,37 @@ public class User {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    // === UserDetails Implementation ===
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // ROLE_ prefix is required for hasRole() to work
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email; // username is email
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; // modify if you want expiration logic
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // modify if you want lock logic
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // modify if you want credential expiry
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true; // modify if you want to disable users
     }
 }

@@ -3,6 +3,8 @@ package com.usman.auth.user_module_springboot.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,6 +78,25 @@ public class UserController {
                 "Login successful",
                 response);
         return ResponseEntity.ok(responseWrapper);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<ApiResponse<Object>> getProfile(@AuthenticationPrincipal User user) {
+        UserProfileDTO dto = new UserProfileDTO();
+        dto.setId(user.getId());
+        dto.setFirstName(user.getFirstName());
+        dto.setLastName(user.getLastName());
+        dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole());
+        dto.setIsEmailVerified(user.getIsEmailVerified());
+        dto.setIs2faEnabled(user.getIs2faEnabled());
+        dto.setCreatedAt(user.getCreatedAt());
+        dto.setUpdatedAt(user.getUpdatedAt());
+        ApiResponse<Object> response = new ApiResponse<>(
+                true,
+                "Profile fetched successfully",
+                dto);
+        return ResponseEntity.ok(response);
     }
 
 }
