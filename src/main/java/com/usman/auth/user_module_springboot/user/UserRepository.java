@@ -1,9 +1,8 @@
-package com.usman.auth.user_module_springboot.repository;
+package com.usman.auth.user_module_springboot.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.usman.auth.user_module_springboot.model.User;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-
+    Optional<User> findByEmail(String email);
 }

@@ -1,0 +1,26 @@
+spring.application.name=
+
+# DB connection
+spring.datasource.url=
+spring.datasource.username=root
+spring.datasource.password=044847
+
+# JPA settings
+# spring.jpa.hibernate.ddl-auto=update
+spring.jpa.hibernate.ddl-auto=create
+spring.jpa.show-sql=true
+spring.jpa.open-in-view=false
+
+spring.mail.host=
+spring.mail.port=
+spring.mail.username=
+spring.mail.password=
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+mail.from=
+
+registration.otp.expiry.seconds=3600
+
+jwt.secret=$2a$12$3NagyKgYQzu6ddIqlneMWe6c2FqM16QtbDvkAATdO1tVpcJvQ2YNy
+access.token.expiry.seconds=3600
+refresh.token.expiry.seconds=86400

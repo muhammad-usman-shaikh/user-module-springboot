@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.usman.auth.user_module_springboot.model.Otp;
-import com.usman.auth.user_module_springboot.model.User;
+import com.usman.auth.user_module_springboot.user.User;
 
 @Service
 public class OtpService {

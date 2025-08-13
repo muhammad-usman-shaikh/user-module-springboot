@@ -1,4 +1,4 @@
-package com.usman.auth.user_module_springboot.controller;
+package com.usman.auth.user_module_springboot.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.usman.auth.user_module_springboot.dto.ApiResponse;
+import com.usman.auth.user_module_springboot.dto.LoginDTO;
+import com.usman.auth.user_module_springboot.dto.LoginResponseDTO;
 import com.usman.auth.user_module_springboot.dto.RegisterUserDTO;
 import com.usman.auth.user_module_springboot.dto.VerifyEmailRequestDTO;
 import com.usman.auth.user_module_springboot.otp.OtpService;
-import com.usman.auth.user_module_springboot.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -58,6 +59,23 @@ public class UserController {
         }
         ApiResponse<Object> response = new ApiResponse<>(true, "Email verified");
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Login a user and return an access token and refresh token.
+     *
+     * @param payload User login info
+     * @return 200 with access token and refresh token if the credentials are valid,
+     *         400 if the credentials are invalid.
+     */
+    @PostMapping("login")
+    public ResponseEntity<ApiResponse<Object>> login(@Valid @RequestBody LoginDTO payload) {
+        LoginResponseDTO response = userService.processLogin(payload);
+        ApiResponse<Object> responseWrapper = new ApiResponse<>(
+                true,
+                "Login successful",
+                response);
+        return ResponseEntity.ok(responseWrapper);
     }
 
 }

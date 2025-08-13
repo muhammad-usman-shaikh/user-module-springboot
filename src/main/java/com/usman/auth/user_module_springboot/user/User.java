@@ -1,4 +1,4 @@
-package com.usman.auth.user_module_springboot.model;
+package com.usman.auth.user_module_springboot.user;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -23,6 +23,10 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserRole role = UserRole.USER;
 
     @Column(name = "is_email_verified", nullable = false)
     private Boolean isEmailVerified = false;
@@ -90,6 +94,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public Boolean getIsEmailVerified() {

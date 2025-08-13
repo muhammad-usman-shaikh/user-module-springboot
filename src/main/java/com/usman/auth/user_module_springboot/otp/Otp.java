@@ -1,7 +1,9 @@
-package com.usman.auth.user_module_springboot.model;
+package com.usman.auth.user_module_springboot.otp;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import com.usman.auth.user_module_springboot.user.User;
 
 @Entity
 @Table(name = "otps")
